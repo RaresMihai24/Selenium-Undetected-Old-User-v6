@@ -18,18 +18,17 @@ def generate_user_agents(num_agents):
 
 def generate_browser_version(browser_name):
     if browser_name.lower() in ["chrome", "brave"]:
-        return f"{browser_name}/" + str(random.randint(80, 100)) + ".0." + str(random.randint(1000, 9999)) + "." + str(random.randint(10, 99))
+        return f"{browser_name}/" + str(random.randint(80, 100)) + "." + str(random.randint(0, 9)) + "." + str(random.randint(0, 9999)) + "." + str(random.randint(0, 99))
     elif browser_name.lower() in ["firefox"]:
-        return f"{browser_name}/" + str(random.randint(80, 100)) + ".0"
+        return f"{browser_name}/" + str(random.randint(80, 100)) + "." + str(random.randint(0, 9)) + "." + str(random.randint(0, 9999))
     elif browser_name.lower() in ["safari"]:
-        return "Version/" + str(random.randint(10, 15)) + ".0.2 Safari/605.1.15"
+        return "Version/" + str(random.randint(10, 15)) + "." + str(random.randint(0, 9)) + "." + str(random.randint(0, 9)) + " Safari/605.1.15"
     elif browser_name.lower() in ["edge"]:
-        return "Edg/" + str(random.randint(80, 100)) + ".0.1000"
+        return "Edg/" + str(random.randint(80, 100)) + "." + str(random.randint(0, 9)) + "." + str(random.randint(0, 9999))
     elif browser_name.lower() in ["opera"]:
-        return "OPR/" + str(random.randint(80, 100)) + ".0.1000.0"
+        return "OPR/" + str(random.randint(80, 100)) + "." + str(random.randint(0, 9)) + "." + str(random.randint(0, 9999)) + "." + str(random.randint(0, 9))
     else:
-        return f"{browser_name}/" + str(random.randint(1, 10)) + ".0"
-
+        return f"{browser_name}/" + str(random.randint(1, 10)) + "." + str(random.randint(0, 9))
 
 def get_random_user_agent():
     browser_name = random.choice(browser_names)
@@ -79,6 +78,6 @@ driver.set_window_size(width,height)
 driver.delete_all_cookies()
 driver.execute_script("window.localStorage.clear();")
 driver.execute_script("window.sessionStorage.clear();")
-driver.get("https://www.xyz.com")
+driver.get("https://www.livejasmin.com")
 time.sleep(1e6)
 driver.close()
