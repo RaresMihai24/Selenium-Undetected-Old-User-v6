@@ -1,4 +1,4 @@
-# undetected-old-user
+# Selenium-Undetected-Old-User
 
 Created to bypass user recognition for some websites. Best usage and results with a premium VPN like cyberghost.
 
