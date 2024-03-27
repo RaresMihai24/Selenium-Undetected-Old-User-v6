@@ -16,28 +16,27 @@ def generate_user_agents(num_agents):
         user_agents.append(get_random_user_agent())
     return user_agents
 
+def generate_browser_version(browser_name):
+    if browser_name.lower() in ["chrome", "brave"]:
+        return f"{browser_name}/" + str(random.randint(80, 100)) + ".0." + str(random.randint(1000, 9999)) + "." + str(random.randint(10, 99))
+    elif browser_name.lower() in ["firefox"]:
+        return f"{browser_name}/" + str(random.randint(80, 100)) + ".0"
+    elif browser_name.lower() in ["safari"]:
+        return "Version/" + str(random.randint(10, 15)) + ".0.2 Safari/605.1.15"
+    elif browser_name.lower() in ["edge"]:
+        return "Edg/" + str(random.randint(80, 100)) + ".0.1000"
+    elif browser_name.lower() in ["opera"]:
+        return "OPR/" + str(random.randint(80, 100)) + ".0.1000.0"
+    else:
+        return f"{browser_name}/" + str(random.randint(1, 10)) + ".0"
+
+
 def get_random_user_agent():
-    
-    chrome_version = "Chrome/" + str(random.randint(80, 100)) + ".0." + str(random.randint(1000, 9999)) + "." + str(random.randint(10, 99))
-    firefox_version = "Firefox/" + str(random.randint(80, 100)) + ".0"
-    safari_version = "Version/" + str(random.randint(10, 15)) + ".0.2 Safari/605.1.15"
-    edge_version = "Edg/" + str(random.randint(80, 100)) + ".0.1000"
-    opera_version = "OPR/" + str(random.randint(80, 100)) + ".0.1000.0"
-    brave_version = "Chrome/" + str(random.randint(80, 100)) + ".0." + str(random.randint(1000, 9999)) + ".110 Safari/537.36"
-    
-    browser_versions = [
-        chrome_version,
-        firefox_version,
-        safari_version,
-        edge_version,
-        opera_version,
-        brave_version,
-    ]
+    browser_name = random.choice(browser_names)
+    browser_version = generate_browser_version(browser_name)
     
     platform = random.choice(platforms)
     web_engine = random.choice(web_engines)
-    browser_name = random.choice(browser_names)
-    browser_version = random.choice(browser_versions)
     
     user_agent = f"Mozilla/5.0 ({platform}) {web_engine} {browser_name}/{browser_version}"
     
@@ -75,6 +74,6 @@ driver.set_window_size(width,height)
 driver.delete_all_cookies()
 driver.execute_script("window.localStorage.clear();")
 driver.execute_script("window.sessionStorage.clear();")
-driver.get("https://www.xyz.com")
+driver.get("https://www.livejasmin.com")
 time.sleep(1e6)
 driver.close()
