@@ -5,6 +5,7 @@ Created to bypass user recognition for some websites. Best usage and results wit
 # Libraries used
 - undetected chrome driver
 - selenium web driver
+- threading
 
 ## Does not work if you don't have latest version of GC installed.
 ## Does not work with later versions of python. Python 3.9 required.
