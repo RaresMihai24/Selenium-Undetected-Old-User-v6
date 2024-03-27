@@ -13,9 +13,6 @@ Created to bypass user recognition for some websites. Best usage and results wit
 ```
 C:\Users\Your_user\AppData\Local\Programs\Python\Python39\python.exe -m pip install undetected_chromedriver
 ```
-```
-C:\Users\Your_user\AppData\Local\Programs\Python\Python39\python.exe -m pip install colorama
-```
 
 # Running
 ```
