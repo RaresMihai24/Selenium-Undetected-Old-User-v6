@@ -42,14 +42,19 @@ def get_random_user_agent():
     
     return user_agent
 
+def terminate_chrome_processes():
+    for proc in psutil.process_iter(['pid', 'name']):
+        if 'chrome' in proc.info['name'].lower():
+            print(f"Terminating Chrome process with PID {proc.info['pid']}")
+            proc.terminate()
+
 def keep_running():
     print(termination_message)
     try:
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        driver.close()
-        driver.quit()
+        terminate_chrome_processes()
         print(termination_message2)
 
 user_agents = generate_user_agents(10)
@@ -74,6 +79,6 @@ driver.set_window_size(width,height)
 driver.delete_all_cookies()
 driver.execute_script("window.localStorage.clear();")
 driver.execute_script("window.sessionStorage.clear();")
-driver.get("https://www.livejasmin.com")
+driver.get("https://www.xyz.com")
 time.sleep(1e6)
 driver.close()
