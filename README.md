@@ -1,6 +1,6 @@
 # Selenium-Undetected-Old-User
 
-Created to bypass user recognition for some websites. Best usage and results with a premium VPN like cyberghost.
+Created to bypass user recognition of some websites. Best usage and results with a premium VPN like cyberghost.
 
 # Libraries used
 - undetected chrome driver
