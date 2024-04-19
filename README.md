@@ -1,6 +1,6 @@
 # Selenium-Undetected-Old-User-v2
 
-# v2 Update CL:
+## v2 Update CL
 - inject & modify getImageData & getContext
 - allow js
 - random language select at boot
@@ -17,8 +17,8 @@ Created to bypass user recognition of some websites. Best usage and results with
 - selenium web driver
 - threading
 
-## Does not work if you don't have latest version of GC installed.
-## Does not work with later versions of python. Python 3.9 required.
+### Does not work if you don't have latest version of GC installed.
+### Does not work with later versions of python. Python 3.9 required.
 
 # Install
 ```
