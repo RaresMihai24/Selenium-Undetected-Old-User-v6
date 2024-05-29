@@ -9,29 +9,42 @@ import psutil
 termination_message = "Press Ctrl+C to terminate the program."
 termination_message2 = "Program terminated."
 randomua = "Random User Agent:"
-
 def modify_canvas_fingerprint(driver):
     script = """
-    const getContext = HTMLCanvasElement.prototype.getContext;
-    HTMLCanvasElement.prototype.getContext = function() {
-        const context = getContext.apply(this, arguments);
-        const getImageData = context.getImageData;
-        context.getImageData = function() {
-            const data = getImageData.apply(this, arguments);
-            for (let i = 0; i < data.data.length; i += 4) {
-                data.data[i] = data.data[i] ^ 10;
-                data.data[i+1] = data.data[i+1] ^ 10;
-                data.data[i+2] = data.data[i+2] ^ 10;
+    (function() {
+        const originalGetContext = HTMLCanvasElement.prototype.getContext;
+        HTMLCanvasElement.prototype.getContext = function(type) {
+            const context = originalGetContext.apply(this, arguments);
+            if (type === '2d') {
+                const originalGetImageData = context.getImageData;
+                context.getImageData = function(x, y, width, height) {
+                    const imageData = originalGetImageData.apply(this, arguments);
+                    const data = imageData.data;
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] ^= 10;     // Red channel
+                        data[i + 1] ^= 10; // Green channel
+                        data[i + 2] ^= 10; // Blue channel
+                    }
+
+                    return imageData;
+                };
             }
-            return data;
+
+            return context;
         };
-        return context;
-    };
+    })();
     """
     driver.execute_script(script)
 
 def get_random_language():
-    languages = ['en-US', 'fr-FR', 'es-ES', 'de-DE', 'it-IT', 'pt-PT', 'ru-RU', 'ja-JP', 'ko-KR', 'zh-CN']
+    languages = [
+        'en-US', 'fr-FR', 'es-ES',
+        'de-DE', 'it-IT', 'pt-PT',
+        'nl-NL', 'sv-SE', 'pl-PL',
+        'id-ID', 'cs-CZ', 'da-DK',
+        'fi-FI', 'hu-HU', 'no-NO',
+        'tr-TR', 'sk-SK', 'ca-ES'
+    ]
     return random.choice(languages)
 
 
@@ -42,39 +55,82 @@ def generate_user_agents(num_agents):
     return user_agents
 
 def generate_browser_version(browser_name):
-    if browser_name.lower() in ["chrome", "brave"]:
-        major_version = random.choice([80, 81, 83, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95])
-        minor_version = f"{random.randint(3000, 4000)}.{random.randint(40, 99)}"
-        build_version = random.randint(100, 999)
-        return f"{browser_name}/{major_version}.0.{minor_version}.{build_version}"
-    elif browser_name.lower() == "firefox":
-        major_version = random.choice([78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90])
-        minor_version = random.randint(1, 10)
-        return f"{browser_name}/{major_version}.{minor_version}"
-    elif browser_name.lower() == "safari":
-        major_version = random.choice([13, 14, 15])
-        minor_version = random.choice([0, 1])
-        patch_version = random.randint(1, 9)
-        return f"Version/{major_version}.{minor_version}.{patch_version} Safari/{random.randint(600, 606)}.1.15"
-    elif browser_name.lower() == "edge":
-        major_version = random.choice([80, 81, 83, 85, 86, 87, 88, 89, 90, 91])
-        build_version = f"{random.randint(1000, 2000)}"
-        return f"Edg/{major_version}.{build_version}"
-    elif browser_name.lower() == "opera":
-        major_version = random.choice([66, 67, 68, 69, 70, 71, 72, 73])
-        minor_version = f"{random.randint(3000, 4000)}.{random.randint(60, 99)}"
-        return f"OPR/{major_version}.{minor_version}"
+    browser_name = browser_name.lower()
+    
+    version_formats = {
+        "chrome": {
+            "major_versions": [80, 81, 83, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95],
+            "version_pattern": lambda major: f"{major}.0.{random.randint(3000, 4000)}.{random.randint(40, 99)}.{random.randint(100, 999)}"
+        },
+        "brave": {
+            "major_versions": [80, 81, 83, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95],
+            "version_pattern": lambda major: f"{major}.0.{random.randint(3000, 4000)}.{random.randint(40, 99)}.{random.randint(100, 999)}"
+        },
+        "firefox": {
+            "major_versions": [78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90],
+            "version_pattern": lambda major: f"{major}.{random.randint(1, 10)}"
+        },
+        "safari": {
+            "major_versions": [13, 14, 15],
+            "version_pattern": lambda major: f"Version/{major}.{random.choice([0, 1])}.{random.randint(1, 9)} Safari/{random.randint(600, 606)}.1.15"
+        },
+        "edge": {
+            "major_versions": [80, 81, 83, 85, 86, 87, 88, 89, 90, 91],
+            "version_pattern": lambda major: f"{major}.{random.randint(1000, 2000)}"
+        },
+        "opera": {
+            "major_versions": [66, 67, 68, 69, 70, 71, 72, 73],
+            "version_pattern": lambda major: f"{major}.{random.randint(3000, 4000)}.{random.randint(60, 99)}"
+        }
+    }
+    
+    default_pattern = lambda: f"{browser_name.capitalize()}/{random.randint(1, 10)}.0.{random.randint(0, 9)}"
+    
+    if browser_name in version_formats:
+        browser_info = version_formats[browser_name]
+        major_version = random.choice(browser_info["major_versions"])
+        return f"{browser_name.capitalize()}/{browser_info['version_pattern'](major_version)}"
     else:
-        return f"{browser_name}/{random.randint(1, 10)}.0.{random.randint(0, 9)}"
+        return default_pattern()
 
 def get_random_user_agent():
     browser_name = random.choice(browser_names)
     browser_version = generate_browser_version(browser_name)
     platform = random.choice(platforms)
     web_engine = random.choice(web_engines)
-    build_detail = random.choice(["", f"; rv:{random.randint(10, 99)}.0"])
-    user_agent = f"Mozilla/5.0 ({platform}) {web_engine} {browser_name}/{browser_version}{build_detail}"
+    
+    build_detail = ""
+    if browser_name.lower() in ["firefox", "internet explorer"]:
+        build_detail = f"; rv:{random.randint(10, 99)}.0"
+    
+    if browser_name.lower() == "safari":
+        user_agent = f"Mozilla/5.0 ({platform}) {web_engine} {browser_version}"
+    else:
+        user_agent = f"Mozilla/5.0 ({platform}) {web_engine} {browser_name}/{browser_version}{build_detail}"
+    
     return user_agent
+
+def spoof_timezone(driver, timezone):
+    script = f"""
+    Intl.DateTimeFormat.prototype.resolvedOptions = function() {{
+        return {{
+            timeZone: '{timezone}'
+        }};
+    }}
+    Date.prototype.getTimezoneOffset = function() {{
+        return -new Date().getTimezoneOffset();
+    }};
+    """
+    driver.execute_script(script)
+	
+def change_fonts(driver, fonts):
+    script = f"""
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = 'body {{ font-family: {fonts}; }}';
+    document.head.appendChild(style);
+    """
+    driver.execute_script(script)
 
 def terminate_chrome_processes():
     for proc in psutil.process_iter(['pid', 'name']):
@@ -97,6 +153,8 @@ user_agent = random.choice(user_agents)
 print(randomua, user_agent)
 
 language = get_random_language()
+timezone = random.choice(['America/New_York', 'Europe/London', 'Asia/Tokyo', 'Australia/Sydney'])
+fonts = random.choice(['Arial, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'])
 
 chrome_options = ChromeOptions()
 
@@ -125,8 +183,12 @@ driver.execute_script("window.localStorage.clear();")
 driver.execute_script("window.sessionStorage.clear();")
 driver.get("about:blank")
 modify_canvas_fingerprint(driver)
+spoof_timezone(driver, timezone)
+change_fonts(driver, fonts)
 
-driver.get("https://www.x.com")
+driver.get("https://www.livejasmin.com")
 modify_canvas_fingerprint(driver)
+spoof_timezone(driver, timezone)
+change_fonts(driver, fonts)
 time.sleep(1e6)
 driver.close()
