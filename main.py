@@ -186,7 +186,7 @@ modify_canvas_fingerprint(driver)
 spoof_timezone(driver, timezone)
 change_fonts(driver, fonts)
 
-driver.get("https://www.livejasmin.com")
+driver.get("https://www.x.com")
 modify_canvas_fingerprint(driver)
 spoof_timezone(driver, timezone)
 change_fonts(driver, fonts)
