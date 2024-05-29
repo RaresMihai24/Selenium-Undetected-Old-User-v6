@@ -1,4 +1,15 @@
-# Selenium-Undetected-Old-User-v2
+# Selenium-Undetected-Old-User-v3
+
+## v3 Update CL
+- refactored modify_canvas_fingerprint() to bypass newest protection
+- refactored generate_user_agents() to bypass newest protection
+- refactored generate_browser_version() in order to get more accurate browser versions to the reality
+- refactored get_random_user_agent() to include edge cases like safari/firefox/IE
+- eliminated unreadable languages from get_random_language()
+- added spoof_timezone() to do inimaginable things
+- added change_fonts() to do also inimaginable things
+- updated WRTC
+- updated uBlock-Origin
 
 ## v2 Update CL
 - inject & modify getImageData & getContext
