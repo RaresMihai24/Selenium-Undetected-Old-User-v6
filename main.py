@@ -9,6 +9,7 @@ import psutil
 termination_message = "Press Ctrl+C to terminate the program."
 termination_message2 = "Program terminated."
 randomua = "Random User Agent:"
+
 def modify_canvas_fingerprint(driver):
     script = """
     (function() {
@@ -151,10 +152,26 @@ user_agents = generate_user_agents(10)
 
 user_agent = random.choice(user_agents)
 print(randomua, user_agent)
+timezones = [
+    'Pacific/Midway', 'America/Adak', 'America/Anchorage', 'America/Los_Angeles', 
+    'America/Denver', 'America/Chicago', 'America/New_York', 'America/Sao_Paulo', 
+    'Atlantic/Azores', 'Europe/London', 'Europe/Berlin', 'Europe/Moscow', 
+    'Asia/Dubai', 'Asia/Karachi', 'Asia/Kolkata', 'Asia/Bangkok', 'Asia/Tokyo', 
+    'Australia/Sydney', 'Pacific/Auckland', 'Pacific/Fiji'
+]
+fonts = [
+    'Arial, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif', 
+    'Georgia, serif', 'Courier New, monospace', 'Lucida Console, monospace', 
+    'Trebuchet MS, sans-serif', 'Arial Black, sans-serif', 'Comic Sans MS, sans-serif', 
+    'Impact, sans-serif', 'Lucida Sans Unicode, sans-serif', 'Tahoma, sans-serif', 
+    'Palatino Linotype, serif', 'Book Antiqua, serif', 'Helvetica, sans-serif', 
+    'Garamond, serif', 'MS Serif, serif', 'MS Sans Serif, sans-serif', 
+    'Symbol, sans-serif', 'Webdings, sans-serif'
+]
 
 language = get_random_language()
-timezone = random.choice(['America/New_York', 'Europe/London', 'Asia/Tokyo', 'Australia/Sydney'])
-fonts = random.choice(['Arial, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'])
+timezone = random.choice(timezones)
+font = random.choice(fonts)
 
 chrome_options = ChromeOptions()
 
@@ -184,11 +201,11 @@ driver.execute_script("window.sessionStorage.clear();")
 driver.get("about:blank")
 modify_canvas_fingerprint(driver)
 spoof_timezone(driver, timezone)
-change_fonts(driver, fonts)
+change_fonts(driver, font)
 
-driver.get("https://www.x.com")
+driver.get("https://www.victim.com")
 modify_canvas_fingerprint(driver)
 spoof_timezone(driver, timezone)
-change_fonts(driver, fonts)
+change_fonts(driver, font)
 time.sleep(1e6)
 driver.close()
