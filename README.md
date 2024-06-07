@@ -3,7 +3,11 @@
 ![image](https://github.com/RaresMihai24/Selenium-Undetected-Old-User-v4/assets/126671528/a5348c0a-cdd6-457c-9a7e-b2042cc00ea5)
 
 ## v5 Update CL
--
+- resolved warnings
+- added collections for data/links/sent-data/cookies
+- improved functionality
+- added a toggle theme button for the people that hate their eyes
+- fancier copyright
 
 ## v4 Update CL
 - refactored fully the main function
