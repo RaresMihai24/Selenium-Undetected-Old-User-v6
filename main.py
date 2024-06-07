@@ -369,7 +369,7 @@ def create_gui():
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("blue")
     root = ctk.CTk()
-    root.title("Selenium Undetected Old User V4")
+    root.title("Selenium Undetected Old User V5")
     root.resizable(False, False)
 
     image_path = r"C:\Users\Rares\Desktop\uc\img.jpg"
