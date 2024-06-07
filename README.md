@@ -1,7 +1,6 @@
 # Selenium-Undetected-Old-User-v5
 
-![image](https://github.com/RaresMihai24/Selenium-Undetected-Old-User-v4/assets/126671528/b4e35803-b8d2-4488-b1d5-578fa01b67b7)
-
+![image](https://github.com/RaresMihai24/Selenium-Undetected-Old-User-v4/assets/126671528/a5348c0a-cdd6-457c-9a7e-b2042cc00ea5)
 
 ## v5 Update CL
 -
