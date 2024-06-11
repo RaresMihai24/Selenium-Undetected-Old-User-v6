@@ -213,7 +213,7 @@ def start_browser():
     except Exception as e:
         logging.error(f"Error getting performance logs: {e}")
 
-    update_message(f"Browser started\nTimezone: {timezone}\nFont: {font}\nUser Agent: {user_agent}\nURL: {url if url else 'https://www.livejasmin.com'}\n", color="green")
+    update_message(f"Browser started\nTimezone: {timezone}\nFont: {font}\nUser Agent: {user_agent}\nURL: {url if url else 'https://www.google.ro'}\n", color="green")
     progress.stop()
     logging.info("Browser started successfully")
 
