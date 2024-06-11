@@ -45,9 +45,12 @@ Created to bypass user recognition of some websites. Best usage and results with
 - undetected chrome driver
 - selenium web driver
 - threading
+- tkinter & customtkinter
 
-### Does not work if you don't have latest version of GC installed.
-### Does not work with later versions of python. Python 3.9 required.
+### Required Python version: 3.9
+### You need to have the last version of google chrome installed.
+### You need to extract the WRTC & uBlock-Origin extensions from the google chrome store.
+### You need to create the folder data/cookies.txt / data/links.txt / data/performance_logs.txt / data/scripts.txt
 
 # Install
 ```
