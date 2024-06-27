@@ -47,10 +47,20 @@
 Created to bypass user recognition of some websites. Best usage and results with a premium VPN like cyberghost.
 
 # Libraries used
+- custom made library functions, timezones, user_agents, fonts
 - undetected chrome driver
 - selenium web driver
 - threading
 - tkinter & customtkinter
+- PIL
+- random
+- time
+- requests
+- logging
+- psutil
+- sys
+- os
+
 
 ### Required Python version: 3.9
 ### You need to have the last version of google chrome installed.
