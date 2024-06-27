@@ -73,7 +73,7 @@ class CustomOptionMenu(ctk.CTkFrame):
 def create_gui():
     global glow_message_label, progress, terminal_box, url_entry, user_agent_var, timezone_var, font_var, web_engine_var, platform_var, browser_name_var, checkbox1_var, checkbox2_var, checkbox3_var, checkbox4_var
     root = ctk.CTk()
-    root.title("Selenium Undetected Old User V5")
+    root.title("Selenium Undetected Old User V6")
     root.resizable(False, False)
 
     frame = ctk.CTkFrame(master=root, width=1000, height=600)
