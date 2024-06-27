@@ -1,6 +1,11 @@
-# Selenium-Undetected-Old-User-v5
+# Selenium-Undetected-Old-User-v6
 
-![image](https://github.com/RaresMihai24/Selenium-Undetected-Old-User-v4/assets/126671528/a5348c0a-cdd6-457c-9a7e-b2042cc00ea5)
+![image](https://github.com/RaresMihai24/Selenium-Undetected-Old-User-v6/assets/126671528/49a2cf68-6c47-4504-aeef-da282b559990)
+
+
+## v6 Update CL
+- better modularization
+- reset program (execv)
 
 ## v5 Update CL
 - resolved warnings
